@@ -15,7 +15,12 @@ class HomePage extends StatelessWidget {
           // GoRouter.of(context).go('/support/support_chat');
           GoRouter.of(context).goNamed('support');
          },
-        child: Text('Support'),),
+        child: Text('Support '),),
+         ElevatedButton(onPressed: () { 
+          // GoRouter.of(context).go('/support/support_chat');
+          GoRouter.of(context).go('/support/support_chat/chatguid?query=text', extra: 'Baiaman');
+         },
+        child: Text('Support chat' ),),
         ElevatedButton(onPressed: () { 
           // GoRouter.of(context).go('/support/support_chat');
           GoRouter.of(context).goNamed('crypto');

@@ -50,7 +50,7 @@ GoRouter router(LoginInfo loginInfo) {
         routes: [
       GoRoute(
         path: 'login',
-        builder: (context, state) => LoginPage(),  
+        builder: (context, state) => const LoginPage(),  
       ),
       GoRoute(path: 'support', 
       name: 'support',
@@ -69,10 +69,14 @@ GoRouter router(LoginInfo loginInfo) {
     },
     routes: [
       GoRoute(
-        name: 'support_chat',
-        path: 'support_chat', builder: (context, state) => SupportChatPage()),
+        path: 'support_chat/:guid', builder: (context, state) {
+          final guid = state.params['guid'] ?? '' ; 
+          final query = state.queryParams['query'] ?? '';
+          final name = state.extra as String ;
+          return SupportChatPage(guid: guid, name: name , query: query,);
+        }),
     ],
-      builder: (context, state) => SupportPage(),),
+      builder: (context, state) => const SupportPage(),),
       GoRoute(path: 'crypto', 
       name: 'crypto',
       redirect: (state) {
@@ -88,7 +92,7 @@ GoRouter router(LoginInfo loginInfo) {
       // no need to redirect at all
       return null;
       },
-      builder: (context, state) => CryptoPage(),),
+      builder: (context, state) => const CryptoPage(),),
       ]
       ),
      
