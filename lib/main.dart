@@ -48,18 +48,13 @@ GoRouter router(LoginInfo loginInfo) {
         path: '/',
         builder: (context, state) => const HomePage(),
         routes: [
- GoRoute(
+      GoRoute(
         path: 'login',
-        builder: (context, state) => LoginPage(),
-        
+        builder: (context, state) => LoginPage(),  
       ),
       GoRoute(path: 'support', 
       name: 'support',
-    redirect: (state) {
-      print('state $state');
-      print(state.location);
-      print(state.path);
-      print(state.subloc);
+      redirect: (state) {
       // if the user is not logged in, they need to login
       final loggedIn = loginInfo.loggedIn;
       final loggingIn = state.subloc == '/login';
@@ -78,9 +73,9 @@ GoRouter router(LoginInfo loginInfo) {
         path: 'support_chat', builder: (context, state) => SupportChatPage()),
     ],
       builder: (context, state) => SupportPage(),),
-       GoRoute(path: 'crypto', 
+      GoRoute(path: 'crypto', 
       name: 'crypto',
-    redirect: (state) {
+      redirect: (state) {
       // if the user is not logged in, they need to login
       final loggedIn = loginInfo.loggedIn;
       final loggingIn = state.subloc == '/login';
@@ -92,10 +87,9 @@ GoRouter router(LoginInfo loginInfo) {
 
       // no need to redirect at all
       return null;
-    },
-  
+      },
       builder: (context, state) => CryptoPage(),),
-        ]
+      ]
       ),
      
     ],
