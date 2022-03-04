@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:routing/services/navigation_service.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({ Key? key }) : super(key: key);
@@ -12,21 +12,18 @@ class HomePage extends StatelessWidget {
       body: Container(
         child:  Center(child: Column(children: [
           ElevatedButton(onPressed: () { 
-          // GoRouter.of(context).go('/support/support_chat');
-          GoRouter.of(context).goNamed('support');
+          NavigationService.showSupportPage(context, name: 'name');
          },
-        child: Text('Support '),),
+        child: Text('Support chat '),),
          ElevatedButton(onPressed: () { 
-          // GoRouter.of(context).go('/support/support_chat');
-          // GoRouter.of(context).go('/support/support_chat/chatguid?query=text', extra: 'Baiaman'); 
-          GoRouter.of(context).push('/support/support_chat/chatguid?query=text', extra: 'Baiaman');
+          NavigationService.showSupportChatPage(context, name: 'name', guid: 'guid', query: 'query', isPush: false);
          },
-        child: Text('Support chat' ),),
+        child: Text('Support chat with path on linking' ),),
         ElevatedButton(onPressed: () { 
-          // GoRouter.of(context).go('/support/support_chat');
-          GoRouter.of(context).goNamed('crypto');
+         NavigationService.showSupportChatPage(context, name: 'name', guid: 'guid', query: 'query');
+          
          },
-        child: Text('Crypto'),)
+        child: Text('Support chat just push'),)
         ],)),
       ),
     );

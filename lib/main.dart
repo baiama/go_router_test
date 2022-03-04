@@ -1,12 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:routing/crypto_page.dart';
-import 'package:routing/home.dart';
-import 'package:routing/login_page.dart';
-import 'package:routing/support_chat.dart';
-import 'package:routing/support_page.dart';
+import 'package:routing/services/router.dart';
 
 import 'login_info.dart';
 
@@ -37,65 +32,4 @@ class MyApp extends StatelessWidget {
     );
   }
 
-}
-
-
-GoRouter router(LoginInfo loginInfo) {
- return GoRouter(
-       refreshListenable: loginInfo,
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const HomePage(),
-        routes: [
-      GoRoute(
-        path: 'login',
-        builder: (context, state) => const LoginPage(),  
-      ),
-      GoRoute(path: 'support', 
-      name: 'support',
-      redirect: (state) {
-      // if the user is not logged in, they need to login
-      final loggedIn = loginInfo.loggedIn;
-      final loggingIn = state.subloc == '/login';
-      if (!loggedIn) return loggingIn ? null : '/login';
-
-      // if the user is logged in but still on the login page, send them to
-      // the support page
-      if (loggingIn) return '/support';
-
-      // no need to redirect at all
-      return null;
-    },
-    routes: [
-      GoRoute(
-        path: 'support_chat/:guid', builder: (context, state) {
-          final guid = state.params['guid'] ?? '' ; 
-          final query = state.queryParams['query'] ?? '';
-          final name = state.extra as String ;
-          return SupportChatPage(guid: guid, name: name , query: query,);
-        }),
-    ],
-      builder: (context, state) => const SupportPage(),),
-      GoRoute(path: 'crypto', 
-      name: 'crypto',
-      redirect: (state) {
-      // if the user is not logged in, they need to login
-      final loggedIn = loginInfo.loggedIn;
-      final loggingIn = state.subloc == '/login';
-      if (!loggedIn) return loggingIn ? null : '/login';
-
-      // if the user is logged in but still on the login page, send them to
-      // the support page
-      if (loggingIn) return '/crypto';
-
-      // no need to redirect at all
-      return null;
-      },
-      builder: (context, state) => const CryptoPage(),),
-      ]
-      ),
-     
-    ],
-  );
 }
